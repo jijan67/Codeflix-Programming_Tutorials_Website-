@@ -1,0 +1,769 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trend Blogger</title>
+    <!-- Box-icon -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,600;0,700;1,400&display=swap');
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    scroll-padding-top: 2rem;
+    box-sizing: border-box;
+}
+
+/* root values */
+:root{
+    --container-color: #1a1e21;
+    --second-color: rgba(77, 228, 255);
+    --text-color: #172317;
+    --bg-color: #fff;
+}
+
+::selection{
+    color: var(--bg-color);
+    background: var(--second-color);
+}
+
+a{
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+}
+
+img{
+    width: 100%;
+}
+
+section{
+    padding: 3rem 0 2rem;
+}
+
+.container{
+    max-width: 1068px;
+    margin: auto;
+    width: 100%;
+}
+
+a{
+    color: #fff;
+}
+
+/* Header */
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+}
+
+header.shadow{
+    background: var(--bg-color);
+    box-shadow: 0 1px 4px hsl(0 4% 14% / 10%);
+    transition: .5s;
+}
+
+header.shadow .logo{
+    color: var(--text-color);
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+}
+
+.logo{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--bg-color);
+}
+
+.logo span{
+    color: var(--second-color);
+}
+
+.login{
+    padding: 8px 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 4px;
+    background: var(--second-color);
+    color: var(--bg-color);
+}
+
+.login:hover{
+    background: hsl(199, 98%, 56%);
+    transition: .5s;
+}
+
+.home{
+    width: 100%;
+    min-height: 440px;
+    background: url("{% static 'images/back.jpg' %}");
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-text{
+    color: var(--bg-color);
+    text-align: center;
+}
+
+.home-title{
+    font-size: 3.5rem;
+    color: deepskyblue;
+}
+
+.home-subtitle{
+    font-size: 1rem;
+    font-weight: 400;
+    color: bisque;
+}
+
+.about{
+    position: relative;
+    width: 100%;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.about .contentBx{
+    max-width: 50%;
+    width: 50%;
+    text-align: left;
+    padding-right: 40px;
+}
+
+.titleText{
+    font-weight: 600;
+    color: #111;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.title-text{
+    color: #111;
+    font-size: 1em;
+}
+
+.about .imgBx{
+    position: relative;
+    min-width: 50%;
+    width: 50%;
+    min-height: 500px;
+}
+
+.btn2{
+    position: relative;
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 30px;
+    background: #fff;
+    border: .8px solid #111;
+    color: #333;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.btn2:hover{
+    background-color: var(--second-color);
+    border: none;
+    color: #fff;
+}
+
+.post-filter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1.5rem;
+    margin-top: 2rem !important;
+}
+
+.filter-item{
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.active-filter{
+    background: var(--second-color);
+    color: var(--bg-color);
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.post{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.post-box{
+    background: var(--bg-color);
+    box-shadow: 0 4px 14px hsl(35deg 25% 15% / 10%);
+    padding: 15px;
+    border-radius: 0.5rem;
+}
+
+.post-img{
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem;
+}
+
+.category{
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--second-color);
+}
+
+.post-title{
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-color);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post-date{
+    display: flex;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    margin-top: 4px;
+    font-weight: 400;
+}
+
+.post-description{
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    margin: 5px 0 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 2px solid var(--second-color);
+}
+
+.profile-name{
+    font-size: .8rem;
+    font-weight: 500;
+}
+
+footer{
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 50px 100px;
+    margin-top: 3rem;
+    background: #111;
+    display: flex;
+    font-family: sans-serif;
+    justify-content: space-between;
+}
+
+.footer-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.footer-container .sec{
+    margin-right: 30px;
+}
+
+.footer-container .sec.aboutus{
+    width: 40%;
+}
+
+.footer-container h2{
+    position: relative;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.footer-container h2::before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: rgb(77, 228, 255);
+}
+
+footer p{
+    color: #fff;
+}
+
+.sci{
+    margin: 20px;
+    display: flex;
+}
+
+.sci li{
+    list-style: none;
+}
+
+.sci li a{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: .5s;
+}
+
+.sci li a:hover{
+    background: rgb(77, 228, 255);
+}
+
+.sci i a .bx{
+    color: #fff;
+    font-size: 20px;
+}
+
+.quicklinks{
+    position: relative;
+    width: 25%;
+}
+
+.quicklinks ul li{
+    list-style: none;
+}
+
+.quicklinks ul li a{
+    color: #999;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: inline-block;
+    transition: .3s;
+}
+
+.quicklinks ul li a:hover{
+    color: #fff;
+}
+
+.footer-container .contactBx{
+    width: calc(35% - 60px);
+    margin-right: 0 !important;
+}
+
+.contactBx .info{
+    position: relative;
+}
+
+.contactBx .info li{
+    display: flex !important;
+    margin-bottom: 16px;
+}
+
+.contactBx .info li span:nth-child(1){
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.contactBx .info li span{
+    color: #999;
+}
+
+.contactBx .info li a{
+    color: #999;
+    text-decoration: none;
+    transition: .5s;
+}
+
+.contactBx .info li a:hover{
+    color: #fff;
+}
+
+@media (max-width: 1060px){
+    .container{
+        margin: 0 auto;
+        width: 95%;
+    }
+
+    .home-text{
+        width: 100%
+    }
+}
+
+@media (max-width: 768px){
+    .nav{
+        padding: 10px 0;
+    }
+
+    section{
+        padding: 2rem 0 !important;
+    }
+
+    .header-content{
+        margin-top: 3rem !important;
+    }
+
+    .home{
+        min-height: 380px;
+    }
+
+    .home-title{
+        font-size: 3rem;
+    }
+
+    .header-title{
+        font-size: 2rem;
+    }
+
+    .header-img{
+        height: 370px;
+    }
+
+    .about{
+        flex-direction: column;
+    }
+
+    .about .contentBx{
+        min-width: 100%;
+        width: 100%;
+        text-align: center;
+        padding-right: 0px;
+    }
+
+    .about .contentBx,
+    .about .imgBx{
+        min-width: 100%;
+        width: 100%;
+        padding-right: 0px;
+        text-align: center;
+    }
+
+    .about .imgBx{
+        min-height: 250px;
+    }
+
+    .btn2{
+        margin-bottom: 30px;
+    }
+
+    .post-header{
+        height: 435px;
+    }
+
+    .post-header{
+        margin-top: 9rem !important;
+    }
+}
+
+@media (max-width: 570px){
+    .post-header{
+        height: 390px;
+    }
+
+    .header-title{
+        width: 100%;
+    }
+
+    .header-img{
+        height: 340px;
+    }
+}
+
+@media (max-width: 396px){
+    .home-title{
+        font-size: 2rem;
+    }
+
+    .home-subtitle{
+        font-size: 0.9rem;
+    }
+
+    .home{
+        min-height: 300px;
+    }
+
+    .post-box{
+        padding: 10px;
+    }
+
+    .header-title{
+        font-size: 1.4rem;
+    }
+
+    .header-img{
+        height: 240px;
+    }
+
+    .post-header{
+        height: 335px;
+    }
+
+    .header-img{
+        height: 340px;
+    }
+}
+
+/* Footer Media Query */
+@media (max-width: 991px){
+    footer{
+        padding: 40px;
+        font-size: 20px;
+    }
+
+    footer .footer-container{
+        flex-direction: column;
+    }
+
+    footer .footer-container .sec{
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
+
+    footer .footer-container .sec.aboutus{
+        width: 100% !important;
+    }
+
+    footer .footer-container .quicklinks{
+        width: 100%;
+    }
+
+    footer .footer-container .contactBx{
+        width: 100%;
+    }
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav container">
+            <a href="#" class="logo">Code<span>flix</span></a>
+            <a href="{% url 'subs' %}" class="login">Watch Programming Tutorials Video</a>
+        </div>
+    </header>
+
+    <section class="home" id="home">
+        <div class="home-text container">
+            <h2 class="home-title"><b>HELLO STUDENTS</b></h2>
+            <span class="home-subtitle"><b>Learn your Favaourite Programming language in Our Website</b></span>
+        </div>
+    </section>
+
+    <section class="about container" id="about">
+        <div class="contentBx">
+            <h2 class="titleText">Introduction to JavaScripts</h2>
+            <p class="title-text">
+                JavaScript is a lightweight, cross-platform, and interpreted compiled programming language which is also known as the scripting language for webpages. 
+                It is well-known for the development of web pages, many non-browser environments also use it. JavaScript can be used for Client-side developments as well as
+                 Server-side developments. Javascript is both imperative and declarative type of language.
+                 JavaScript contains a standard library of objects, like Array, Date, and Math, and a core set of language elements like operators, control structures, and statements. 
+                 <br>
+                 Client-side: It supplies objects to control a browser and its Document Object Model (DOM). 
+                 Like if client-side extensions allow an application to place elements on an HTML form and respond to user events such as mouse
+                  clicks, form input, and page navigation. Useful libraries for the client-side are AngularJS, ReactJS, VueJS and so many others.
+Server-side: It supplies objects relevant to running JavaScript on a server. Like if the server-side extensions allow an application to communicate with a 
+database, and provide continuity of information from one invocation to another of the application, or perform file manipulations on a server. The useful 
+framework which is the most famous these days is node.js.
+Imperative language – In this type of language we are mostly concern about how it is to be done . It simply control the flow of computation .
+ The procedural programming approach , object, oriented approach comes under this like async await we are thinking what it is to be done further
+  after async call.
+Declarative programming – In this type of language we are concern about how it is to be done , basically here logical computation require .
+ Here  main goal is to describe the desired result without direct dictation on how to get it like  arrow function do .
+JavaScript can be added to your HTML file in two ways:
+
+Internal JS: We can add JavaScript directly to our HTML file by writing the code inside the
+            <a href="{% url 'course' %}" class="btn2">Read more</a>
+        </div>
+        <div class="imgBx">
+            <img src="{% static 'images/JAVASC1.png' %}" alt="" class="fitBg">
+        </div>
+    </section>
+
+    <div class="post-filter container">
+        <span class="filter-item active-filter" data-filter="all">All</span>
+        <span class="filter-item" data-filter="tech"></span>
+        <span class="filter-item" data-filter="food">Implementation of JavaScript</span>
+        <span class="filter-item" data-filter="news"></span>
+    </div>
+    
+    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 my-4 position-relative">
+        <!-- Post 1 -->
+        <!-- Post 2 -->
+        <div class="post-box food">
+            <img src="{% static 'images/JAVASC1.png' %}" alt="" class="post-img">
+            <h2 class="category">JavaScript</h2>
+            <a href="#" class="post-title">What is JavaScript?</a>
+            <span class="post-date">presented by codeflix</span>
+            <p class="post-description"><p>JavaScript is a scripting or programming language that allows you to implement complex features on web pages<br>
+                — every time a web page does more than just sit there and display static information for you to look at<br>
+                — displaying timely content updates, interactive maps, animated 2D/3D graphics, scrolling video jukeboxes, etc. <br>
+                — you can bet that JavaScript is probably involved.
+                </p></p>
+            <div class="profile">
+                <img src="{% static 'images/websitelogo.png' %}" alt="" class="profile-img">
+                <span class="profile-name">Codeflix</span>
+            </div>
+        </div>
+        <!-- Post 3 -->
+        <div class="post-box food">
+            <img src="{% static 'images/JAVASC2.jpg' %}" alt="" class="post-img">
+            <h2 class="category">JavaScript</h2>
+            <a href="#" class="post-title">How does JavaScript work?</a>
+            <span class="post-date">presented by codeflix</span>
+            <p class="post-description"><p>JavaScript is considered a client-side scripting language, which means that it operates on the
+                user's browser and does not function on an external device. An example of a language that is 
+               not client-side would be MySQL, a server-side language that handles any database requests.<br>
+               
+               JavaScript also does not require that anything be downloaded to the user's devices,
+                as modern browsers have the required software integrated into them. This makes JavaScript much
+                more user-friendly than some other languages can be.
+               </p></p>
+            <div class="profile">
+                <img src="{% static 'images/websitelogo.png' %}" alt="" class="profile-img">
+                <span class="profile-name">Codeflix</span>
+            </div>
+        </div>
+        <!-- Post 4 -->
+        <!-- Post 5 -->
+        <!-- Post 6 -->
+        <!-- Post 7 -->
+        <!-- Post 1 -->
+        <!-- Post 9 -->
+        <div class="post-box food">
+            <img src="{% static 'images/JAVASC3.jpg' %}" alt="" class="post-img">
+            <h2 class="category">JavaScript</h2>
+            <a href="#" class="post-title">How to Add JavaScript to Your Website?</a>
+            <span class="post-date">Presented by codeflix</span>
+            <p class="post-description"><p>Adding JavaScript to your website is easy; you just need to link your JavaScript files from 
+                within your HTML files. If you have any experience working with HTML and CSS for web development,
+                 then you've already experienced something similar.<br>
+                
+                Much like adding CSS to your HTML, there is an HTML tag called "script" that allows you to link to
+                 JavaScript files so that your code can be used to manipulate the HTML and CSS of your website.<br>
+                The above line connects a file called "yourFile.js" (horrible naming convention,
+                 but it serves as an example) to your HTML file connecting the two.
+                </p></p>
+            <div class="profile">
+                <img src="{% static 'images/websitelogo.png' %}" alt="" class="profile-img">
+                <span class="profile-name">Codeflix</span>
+            </div>
+        </div>
+        <div class="post-box tech">
+            <video src="{% static 'video/python/part1.mp4' %}" controls muted autoplay class="post-img"></video>
+            <h2 class="category">Python</h2>
+            <a href="#" class="post-title">Introduction and Guidline about Python</a>
+            <span class="post-date">power by Codeflix</span>
+            <p class="post-description"><p>In this video,You can learn What application do you need to run python and other general guidline<br></p>
+            <a href="{% url 'payment' %}" class="btn2">For More Tutorials</a></p>
+            <div class="profile">
+                <img src="{% static 'images/websitelogo.png' %}" alt="" class="profile-img">
+                <span class="profile-name">Codeflix</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="sec aboutus">
+                <h2>Information</h2>
+                <p>If you need to any kind of help please <a href="#">Contact Us</a></p>
+                <ul class="sci">
+                    <li><a href="#"><i class="bx bxl-facebook"></i></a></li>
+                    <li><a href="#"><i class="bx bxl-instagram"></i></a></li>
+                    <li><a href="#"><i class="bx bxl-twitter"></i></a></li>
+                    <li><a href="#"><i class="bx bxl-linkedin"></i></a></li>
+                </ul>
+            </div>
+            <div class="sec quicklinks">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                </ul>
+            </div>
+            <div class="sec contactBx">
+                <h2>Address</h2>
+                <ul class="info">
+                    <li>
+                        <span><i class='bx bxs-map'></i></span>
+                        <span>Port City International University,<br>Chittagong,<br>Bangladesh</span>
+                    </li>
+                    <li>
+                        <span><i class='bx bx-envelope' ></i></span>
+                        <p><a href="mailto:codemyhobby9@gmail.com">JiJanurrahman@gmail.com</a></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>// nav background
+        let header = document.querySelector("header");
+        
+        window.addEventListener("scroll", () => {
+            header.classList.toggle("shadow", window.scrollY > 0)
+        })
+        
+        //Filter
+        $(document).ready(function () {
+            $(".filter-item").click(function () {
+                const value = $(this).attr("data-filter");
+                if (value == "all"){
+                    $(".post-box").show("1000")
+                } else{
+                    $(".post-box")
+                        .not("." + value)
+                        .hide(1000);
+                    $(".post-box")
+                    .filter("." + value)
+                    .show("1000")
+                }
+            });
+            $(".filter-item").click(function () {
+                $(this).addClass("active-filter").siblings().removeClass("active-filter")
+            });
+        });</script>
+</body>
+</html>
